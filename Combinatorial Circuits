@@ -17,3 +17,21 @@ begin
   vX  <= vA and vB;    -- Vector bitwise AND
   vY  <= vA or vB;     -- Vector bitwise OR
 end architecture RTL; 
+
+
+-- Vector Reduction in VHDL
+
+-- Entity : Note: use IEEE.std_Logic_misc.all;
+entity gates is port (
+  vA, vB, vC, vD : in std_logic_vector(3 downto 0);
+  W,U,X,Y,Z	 : out std_logic );
+end entity gates;
+-- Architecture
+architecture RTL of gates is
+begin
+  W   <= AND_REDUCE(vA);  -- Vector Reduction AND
+  U   <= NOR_REDUCE(vB);  -- Vector Reduction NOR
+  X   <= XNOR_REDUCE(vD); -- Vector Reduction XOR
+  Y   <= OR_REDUCE(vA) and vB(0);  -- OR Red, bit AND
+  Z   <= OR_REDUCE(vA and vB);     -- Bit AND, OR Red  
+end architecture RTL; 
